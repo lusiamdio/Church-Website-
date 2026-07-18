@@ -1,37 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Play, Flame, Heart, Share2, Users, Send, Smile, Clock, DollarSign, Sparkles, MessageSquare, Plus, Check } from "lucide-react";
-
-const CHAT_SIMULATOR_PRESETS = [
-  { user: "Sister Evelyn", text: "Amen! Standing on Joel 2:25. Rebuilding my gates today!" },
-  { user: "Brother Juan", text: "Prophetess Maria, thank you for that word on perfect peace. It silenced my anxiety!" },
-  { user: "Aunt Sophia", text: "Such a beautiful acoustic worship atmosphere today! Glory to Jesus!" },
-  { user: "Pastor Caleb", text: "Welcome church family! Praying for complete physical healing in homes today." },
-  { user: "Deacon Thomas", text: "Amen! Sowing my tithing seed of faith with joy." },
-  { user: "Elena R.", text: "Our family is watching together from Houston! This is home." },
-];
+import React, { useState, useEffect } from "react";
+import { Heart, Share2, Users, Clock, DollarSign, Sparkles, Check, CheckCircle } from "lucide-react";
 
 export default function LiveChurch() {
   // Timer state
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   
-  // Chat simulator state
-  const [chatInput, setChatInput] = useState("");
-  const [chatMessages, setChatMessages] = useState<any[]>(CHAT_SIMULATOR_PRESETS.slice(0, 4));
-  const chatBottomRef = useRef<HTMLDivElement>(null);
-
-  // Micro donation preset inside stream
+  // Interactive action states
   const [showMicroGive, setShowMicroGive] = useState(false);
   const [microGiveSuccess, setMicroGiveSuccess] = useState(false);
   const [microAmount, setMicroAmount] = useState(25);
+  const [donorName, setDonorName] = useState("");
+  
+  const [prayerSubmitted, setPrayerSubmitted] = useState(false);
+  const [prayerText, setPrayerText] = useState("");
+  const [showPrayerForm, setShowPrayerForm] = useState(false);
 
-  // Calculate countdown to next Sunday 9:00 AM
+  // Calculate countdown to next Sunday 10:15 AM SAST
   useEffect(() => {
     const calculateCountdown = () => {
       const now = new Date();
-      // Target: Next Sunday 9:00 AM
+      // Target: Next Sunday 10:15 AM SAST
       const nextSunday = new Date();
       nextSunday.setDate(now.getDate() + ((7 - now.getDay()) % 7 || 7));
-      nextSunday.setHours(9, 0, 0, 0);
+      nextSunday.setHours(10, 15, 0, 0);
 
       const diff = nextSunday.getTime() - now.getTime();
       if (diff <= 0) {
@@ -53,59 +44,30 @@ export default function LiveChurch() {
     return () => clearInterval(interval);
   }, []);
 
-  // Chat simulator feed additions
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const users = ["Christopher E.", "Sister Clara", "Matthew H.", "Theresa S.", "Brother Gabriel", "Missionary Luke"];
-      const messages = [
-        "Preach, Apostle David! Hallelujah!",
-        "Restoration is my portion in 2026!",
-        "Praying for peace in families right now.",
-        "Yes! God will restore what the locusts have eaten.",
-        "Greetings from Austin! Watching online.",
-        "Praise hands! Complete healing!"
-      ];
-
-      const randUser = users[Math.floor(Math.random() * users.length)];
-      const randText = messages[Math.floor(Math.random() * messages.length)];
-
-      setChatMessages((prev) => [
-        ...prev,
-        { user: randUser, text: randText }
-      ]);
-    }, 12000); // Add simulated text every 12 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto scroll chat
-  useEffect(() => {
-    chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatMessages]);
-
-  const handleSendChat = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-
-    setChatMessages((prev) => [
-      ...prev,
-      { user: "You (Guest)", text: chatInput }
-    ]);
-    setChatInput("");
-  };
-
   const handleMicroGiveSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setMicroGiveSuccess(true);
     setTimeout(() => {
       setMicroGiveSuccess(false);
       setShowMicroGive(false);
-    }, 3000);
+      setDonorName("");
+    }, 4000);
+  };
+
+  const handlePrayerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!prayerText.trim()) return;
+    setPrayerSubmitted(true);
+    setTimeout(() => {
+      setPrayerSubmitted(false);
+      setShowPrayerForm(false);
+      setPrayerText("");
+    }, 4000);
   };
 
   return (
     <section id="live" className="py-20 px-4 md:px-8 bg-navy-dark text-white text-left relative">
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="max-w-5xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-1.5 bg-rose-500/20 border border-rose-500/30 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest text-rose-400 font-bold">
@@ -114,7 +76,7 @@ export default function LiveChurch() {
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight">Live Broadcast Portal</h2>
           <p className="font-serif italic text-slate-300 text-sm max-w-lg mx-auto">
-            Can't join us in person? Connect into the Sanctuary live stream, participate in real-time chat, submit prayer, and sow tithes from anywhere globally.
+            Can't join us in person? Connect into the Sanctuary live stream, submit digital prayer cards, and sow seed offerings from anywhere globally.
           </p>
         </div>
 
@@ -126,7 +88,7 @@ export default function LiveChurch() {
             </div>
             <div>
               <h4 className="font-bold text-base">Next Sunday Worship Assembly</h4>
-              <p className="text-xs text-slate-400 mt-0.5">Sunday morning Bilingual Worship & Apostolic Teaching begins at 9:00 AM CST.</p>
+              <p className="text-xs text-slate-400 mt-0.5">Sunday morning Early Celebration - Praise & Testimonies begins at 10:15 AM SAST.</p>
             </div>
           </div>
 
@@ -151,174 +113,128 @@ export default function LiveChurch() {
           </div>
         </div>
 
-        {/* Live streaming structure */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Stream Player Left Column */}
-          <div className="lg:col-span-8 flex flex-col">
-            <div className="bg-black aspect-video rounded-3xl overflow-hidden border border-white/15 relative group shadow-2xl">
-              {/* Actual Youtube Live stream placeholder or HillSong/Elevation style church worship video */}
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=0"
-                title="Sanctuary of Jesus Christ Live Stream Broadcast"
-                className="w-full h-full border-none"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
+        {/* Central Theater Mode Player */}
+        <div className="space-y-6">
+          <div className="bg-black aspect-video rounded-3xl overflow-hidden border border-white/15 relative group shadow-2xl">
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=0"
+              title="Sanctuary of Jesus Christ Live Stream Broadcast"
+              className="w-full h-full border-none"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
 
-            {/* Stream info details */}
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-4 p-2">
-              <div className="text-left space-y-1">
-                <h3 className="font-display font-bold text-lg text-white">Sunday English Celebration Service (Live Broadcast)</h3>
-                <p className="text-xs text-slate-400">By Lead Pastors Apostle David and Prophetess Maria Martinez</p>
+          {/* Broadcast Information & Interaction Center */}
+          <div className="bg-navy-light/20 border border-white/5 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-white/5">
+              <div className="text-left space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Stream Status: Active Broadcast</span>
+                </div>
+                <h3 className="font-display font-black text-xl md:text-2xl text-white">Sunday Early Celebration (Live Worship Assembly)</h3>
+                <p className="text-xs text-slate-300">Presided by Lead Pastors Apostle David & Prophetess Maria Martinez</p>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5 bg-white/5 border border-white/15 px-3 py-1.5 rounded-full text-xs text-slate-300">
-                  <Users className="w-4 h-4 text-royal-blue" />
-                  <span>247 watching now</span>
+              <div className="flex items-center gap-3 w-full md:w-auto">
+                <span className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-xs text-slate-300">
+                  <Users className="w-4 h-4 text-sky-400 animate-pulse" />
+                  <span>247 watching online</span>
                 </span>
                 <button
                   onClick={() => {
                     if (navigator.share) {
                       navigator.share({ title: "Sanctuary Live Stream", url: window.location.href });
                     } else {
+                      navigator.clipboard.writeText(window.location.href);
                       alert("Stream link copied to clipboard!");
                     }
                   }}
-                  className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/15 hover:border-gold rounded-xl transition-all"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-gold rounded-xl text-xs text-slate-200 transition-all cursor-pointer"
                   title="Share Stream"
                   id="btn-stream-share"
                 >
-                  <Share2 className="w-4 h-4 text-slate-300 hover:text-gold" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Chat & Quick Actions Right Column */}
-          <div className="lg:col-span-4 flex flex-col h-[480px] lg:h-auto border border-white/10 bg-navy-light/20 rounded-3xl overflow-hidden relative shadow-2xl">
-            {/* Header */}
-            <div className="px-4 py-3.5 bg-navy-dark/90 border-b border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-gold" />
-                <span className="text-xs font-bold uppercase tracking-wider text-white">Live Service Chat</span>
-              </div>
-              <span className="bg-emerald-500/20 text-emerald-400 text-[9px] px-2.5 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-widest font-extrabold animate-pulse">
-                Active
-              </span>
-            </div>
-
-            {/* Chat Box Scrolling List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-navy-dark/15 text-left scrollbar-thin">
-              {chatMessages.map((msg, i) => (
-                <div key={i} className="space-y-1 bg-white/5 border border-white/5 rounded-2xl p-3 shadow-inner">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-sky-300">{msg.user}</span>
-                    <span className="text-[8px] text-slate-500">Live</span>
-                  </div>
-                  <p className="text-[11px] text-slate-200">{msg.text}</p>
-                </div>
-              ))}
-              <div ref={chatBottomRef} />
-            </div>
-
-            {/* Chat quick chips presets */}
-            <div className="px-3.5 py-1.5 bg-navy-dark/40 border-t border-white/5 flex gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none">
-              <button
-                onClick={() => {
-                  setChatMessages((prev) => [...prev, { user: "You (Guest)", text: "Praise God! What a powerful word!" }]);
-                }}
-                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-slate-300 hover:text-white"
-              >
-                Praise God! 🙌
-              </button>
-              <button
-                onClick={() => {
-                  setChatMessages((prev) => [...prev, { user: "You (Guest)", text: "Amen! Believing for physical healing today." }]);
-                }}
-                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-slate-300 hover:text-white"
-              >
-                Amen! 🙏
-              </button>
-              <button
-                onClick={() => {
-                  setChatMessages((prev) => [...prev, { user: "You (Guest)", text: "Greetings to Pastors Martinez from my family." }]);
-                }}
-                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-slate-300 hover:text-white"
-              >
-                Blessings! ✨
-              </button>
-            </div>
-
-            {/* Bottom Actions input */}
-            <div className="p-3 bg-navy-dark/80 border-t border-white/10 space-y-2">
-              <form onSubmit={handleSendChat} className="flex gap-2">
-                <input
-                  type="text"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Send a chat message to other members..."
-                  className="flex-1 bg-navy-dark border border-white/15 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-royal-blue transition-colors"
-                  id="live-chat-input"
-                />
-                <button
-                  type="submit"
-                  disabled={!chatInput.trim()}
-                  className="p-2.5 bg-royal-blue hover:bg-blue-600 rounded-xl text-white transition-colors disabled:opacity-40"
-                  id="btn-live-chat-send"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                </button>
-              </form>
-
-              {/* Instant Stream Actions (Pray / Quick Give) */}
-              <div className="flex gap-2 justify-between pt-1">
-                <button
-                  onClick={() => setShowMicroGive(!showMicroGive)}
-                  className="flex-1 py-1.5 bg-gradient-to-r from-gold to-yellow-600 hover:shadow-lg text-navy-dark font-bold text-[10px] rounded-lg uppercase tracking-wide flex items-center justify-center gap-1 cursor-pointer"
-                  id="btn-stream-quickgive"
-                >
-                  <DollarSign className="w-3 h-3" />
-                  <span>Sow Seed</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setChatMessages((prev) => [...prev, { user: "You (Guest)", text: "🙏 [Prayer submitted] Asking for spiritual strength." }]);
-                  }}
-                  className="flex-1 py-1.5 bg-white/10 hover:bg-white/15 text-slate-200 hover:text-white font-bold text-[10px] rounded-lg uppercase tracking-wide flex items-center justify-center gap-1 cursor-pointer"
-                  id="btn-stream-quickprayer"
-                >
-                  <Heart className="w-3 h-3 text-rose-400 fill-rose-400" />
-                  <span>Request Prayer</span>
+                  <Share2 className="w-3.5 h-3.5 text-slate-300" />
+                  <span>Share Broadcast</span>
                 </button>
               </div>
             </div>
 
-            {/* Micro Donation Form Pop-up Inside Panel */}
+            {/* Micro Quick Interaction Buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Quick Sow Seed Button */}
+              <button
+                onClick={() => {
+                  setShowMicroGive(!showMicroGive);
+                  setShowPrayerForm(false);
+                }}
+                className={`py-4 px-6 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer border ${
+                  showMicroGive 
+                    ? "bg-gold border-gold text-navy-dark shadow-lg shadow-gold/10" 
+                    : "bg-gold/10 hover:bg-gold/20 border-gold/30 text-gold hover:border-gold"
+                }`}
+                id="btn-stream-quickgive"
+              >
+                <DollarSign className="w-4 h-4" />
+                <span>Sow Instant Worship Offering</span>
+              </button>
+
+              {/* Quick Prayer Request Button */}
+              <button
+                onClick={() => {
+                  setShowPrayerForm(!showPrayerForm);
+                  setShowMicroGive(false);
+                }}
+                className={`py-4 px-6 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300 cursor-pointer border ${
+                  showPrayerForm
+                    ? "bg-royal-blue border-royal-blue text-white shadow-lg shadow-royal-blue/10"
+                    : "bg-white/5 hover:bg-white/10 border-white/10 text-slate-200 hover:text-white hover:border-white/30"
+                }`}
+                id="btn-stream-quickprayer"
+              >
+                <Heart className="w-4 h-4" />
+                <span>Submit Live Prayer Card</span>
+              </button>
+            </div>
+
+            {/* Quick Sowing Interactive Container */}
             {showMicroGive && (
-              <div className="absolute inset-x-0 bottom-0 bg-navy-dark/95 border-t border-white/15 p-4 space-y-4 shadow-2xl z-10 transition-all duration-300">
-                <div className="flex justify-between items-center pb-2 border-b border-white/10">
-                  <span className="text-[10px] font-bold uppercase text-gold">Sow Micro Seed Instantly</span>
-                  <button onClick={() => setShowMicroGive(false)} className="text-xs text-slate-400 hover:text-white">Cancel</button>
+              <div className="bg-navy-dark/60 border border-gold/30 rounded-2xl p-5 md:p-6 space-y-4 fade-in-up" id="quick-sow-container">
+                <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-gold" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-gold">Sow Micro Seed Offering</span>
+                  </div>
+                  <button 
+                    onClick={() => setShowMicroGive(false)} 
+                    className="text-[10px] text-slate-400 hover:text-white uppercase tracking-widest font-bold"
+                  >
+                    Hide
+                  </button>
                 </div>
 
                 {microGiveSuccess ? (
-                  <div className="text-center py-4 space-y-1.5">
-                    <Check className="w-8 h-8 text-emerald-400 mx-auto animate-bounce" />
-                    <h5 className="font-bold text-xs">Offering Sown!</h5>
-                    <p className="text-[10px] text-slate-300">Thank you for your ${microAmount} tithes offering. God bless!</p>
+                  <div className="text-center py-6 space-y-2">
+                    <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto animate-bounce" />
+                    <h5 className="font-display font-black text-base text-white">Offering Received!</h5>
+                    <p className="text-xs text-slate-300">Thank you, {donorName || "Beloved"}, for your seed offering of ${microAmount}. May God restore it tenfold!</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleMicroGiveSubmit} className="space-y-3 text-left">
-                    <div className="grid grid-cols-3 gap-1.5">
-                      {[10, 25, 50].map((amt) => (
+                  <form onSubmit={handleMicroGiveSubmit} className="space-y-4 text-left">
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Sow a quick seed of support for the restoration broadcast. Select an amount or enter your name below:
+                    </p>
+                    <div className="grid grid-cols-3 gap-2.5">
+                      {[15, 30, 60].map((amt) => (
                         <button
                           key={amt}
                           type="button"
                           onClick={() => setMicroAmount(amt)}
-                          className={`py-1.5 text-center text-xs font-semibold rounded-lg border transition-all ${
-                            microAmount === amt ? "bg-royal-blue border-royal-blue text-white" : "bg-white/5 border-white/10 text-slate-400"
+                          className={`py-2.5 text-center text-xs font-bold rounded-xl border transition-all cursor-pointer ${
+                            microAmount === amt 
+                              ? "bg-gold border-gold text-navy-dark" 
+                              : "bg-white/5 border-white/10 text-slate-300 hover:border-white/20"
                           }`}
                         >
                           ${amt}
@@ -326,19 +242,71 @@ export default function LiveChurch() {
                       ))}
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-col md:flex-row gap-3">
                       <input
                         type="text"
                         required
-                        placeholder="Donor Name"
-                        className="flex-1 bg-navy-dark border border-white/15 rounded-lg px-3 py-1.5 text-[10px] text-white focus:outline-none"
+                        value={donorName}
+                        onChange={(e) => setDonorName(e.target.value)}
+                        placeholder="Your full name"
+                        className="flex-1 bg-navy-dark/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold transition-colors"
                       />
                       <button
                         type="submit"
-                        className="px-4 bg-gold hover:bg-yellow-600 text-navy-dark font-bold text-[10px] uppercase rounded-lg"
+                        className="px-6 py-2.5 bg-gold hover:bg-yellow-600 text-navy-dark font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer"
                       >
-                        Sow ${microAmount}
+                        Sow ${microAmount} Seed
                       </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
+
+            {/* Quick Prayer Submission Interactive Container */}
+            {showPrayerForm && (
+              <div className="bg-navy-dark/60 border border-royal-blue/30 rounded-2xl p-5 md:p-6 space-y-4 fade-in-up" id="quick-prayer-container">
+                <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-rose-400">Submit Live Intercession request</span>
+                  </div>
+                  <button 
+                    onClick={() => setShowPrayerForm(false)} 
+                    className="text-[10px] text-slate-400 hover:text-white uppercase tracking-widest font-bold"
+                  >
+                    Hide
+                  </button>
+                </div>
+
+                {prayerSubmitted ? (
+                  <div className="text-center py-6 space-y-2">
+                    <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto animate-bounce" />
+                    <h5 className="font-display font-black text-base text-white">Prayer Sent to Altar!</h5>
+                    <p className="text-xs text-slate-300">Your petition has been submitted instantly. Our intercessors are praying over this right now.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handlePrayerSubmit} className="space-y-4 text-left">
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Your prayer request will be sent directly to the prayer center and added to the intercessory list:
+                    </p>
+                    <div className="space-y-3">
+                      <textarea
+                        required
+                        value={prayerText}
+                        onChange={(e) => setPrayerText(e.target.value)}
+                        placeholder="Write your brief prayer request here (e.g. family restore, physical healing, peace)..."
+                        rows={3}
+                        className="w-full bg-navy-dark/80 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-royal-blue transition-colors resize-none"
+                      />
+                      <div className="flex justify-end">
+                        <button
+                          type="submit"
+                          className="px-6 py-2.5 bg-royal-blue hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer"
+                        >
+                          Submit to Altar
+                        </button>
+                      </div>
                     </div>
                   </form>
                 )}

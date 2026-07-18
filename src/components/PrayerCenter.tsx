@@ -23,7 +23,7 @@ const INITIAL_PRAYERS: PrayerRequest[] = [
   {
     id: "p3",
     name: "Brother Benjamin",
-    text: "Praying for financial restoration. I was laid off from my warehouse role two weeks ago. I am trusting God for a new door in Texas with a salary sufficient to take care of my three children. God is my provider!",
+    text: "Praying for financial restoration. I was laid off from my warehouse role two weeks ago. I am trusting God for a new door in Cape Town with a salary sufficient to take care of my three children. God is my provider!",
     category: "Financial",
     date: "July 11, 2026",
     prayedCount: 24
@@ -31,7 +31,7 @@ const INITIAL_PRAYERS: PrayerRequest[] = [
   {
     id: "p4",
     name: "Youth Leader Chloe",
-    text: "Praying for our upcoming Youth Revival Night on Friday! We are praying for a massive harvest of youth souls in Houston, that they will break free from depression, find their identities in Christ, and be set on fire!",
+    text: "Praying for our upcoming Youth Revival Night on Friday! We are praying for a massive harvest of youth souls in Cape Town, that they will break free from depression, find their identities in Christ, and be set on fire!",
     category: "Youth",
     date: "July 9, 2026",
     prayedCount: 47,
@@ -251,12 +251,12 @@ export default function PrayerCenter() {
                     className="w-full bg-navy-dark border border-white/15 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-royal-blue transition-colors"
                     id="prayer-select-category"
                   >
-                    <option value="Urgent">Urgent 🔥</option>
-                    <option value="Health">Healing / Health 🩺</option>
-                    <option value="Family">Family / Children 🏠</option>
-                    <option value="Financial">Financial / Job 💼</option>
-                    <option value="Marriage">Marriage 💍</option>
-                    <option value="Youth">Youth ⚡</option>
+                    <option value="Urgent">Urgent</option>
+                    <option value="Health">Healing / Health</option>
+                    <option value="Family">Family / Children</option>
+                    <option value="Financial">Financial / Job</option>
+                    <option value="Marriage">Marriage</option>
+                    <option value="Youth">Youth</option>
                   </select>
                 </div>
 
@@ -269,7 +269,7 @@ export default function PrayerCenter() {
                       className="accent-royal-blue"
                       id="prayer-checkbox-praise"
                     />
-                    <span>Praise Report 🎉</span>
+                    <span>Praise Report</span>
                   </label>
                 </div>
               </div>
@@ -369,7 +369,7 @@ export default function PrayerCenter() {
                   <div className="mt-5 pt-5 border-t border-white/10 space-y-4 animate-fadeIn" id={`ai-followup-panel-${prayer.id}`}>
                     <div className="flex items-center gap-2 text-gold">
                       <Sparkles className="w-4 h-4" />
-                      <h5 className="text-[11px] font-extrabold uppercase tracking-wider font-display">🛡️ AI Pastoral Care Letter</h5>
+                      <h5 className="text-[11px] font-extrabold uppercase tracking-wider font-display">AI Pastoral Care Letter</h5>
                     </div>
 
                     {/* Encapsulating Message */}

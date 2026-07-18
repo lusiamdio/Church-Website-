@@ -37,11 +37,13 @@ Church Profile:
 - Name: Sanctuary of Jesus Christ Evangelical Church House of Restoration.
 - Lead Pastors: Apostle David Martinez & Prophetess Maria Martinez.
 - Vision: To restore families, heal the broken-hearted, and equip believers to impact the world for Jesus Christ.
-- Location: 777 Sanctuary Drive, Houston, Texas, 77057.
+- Location: 11 Lower Maynard Road, Wynberg, Cape Town.
+- Contact Numbers: +27 67 998 2100 | +27 74 349 0883
+- Contact Email: contact@sjchchurch.org
 - Service Times: 
-  - Sundays at 9:00 AM: Bilingual Worship Service (English & Spanish).
-  - Sundays at 11:30 AM: Main Celebration Service (Dynamic praise, deep worship, apostolic teaching).
-  - Wednesdays at 7:00 PM: Midweek Restoring Word & Prayer.
+  - Sundays at 10:15 AM SAST: Sunday Early Celebration (Praise, Testimonies).
+  - Tuesdays at 9:30 PM SAST: Tuesday Online Intercession Service.
+  - Thursdays at 7:15 PM SAST: Thursday Church Intercession Service.
 - Ministries:
   - Kingdom Kids: Exciting and safe children's church (Ages 1-11) during Sunday services.
   - Restoration Youth: Dynamic youth ministry (Ages 12-18), meeting Fridays at 7:30 PM.
@@ -76,7 +78,7 @@ app.post("/api/chat", async (req, res) => {
   // Fallback if API key is not present
   if (!ai) {
     return res.json({
-      text: `Hello! Welcome to Sanctuary of Jesus Christ Evangelical Church House of Restoration. I'm Grace AI, your virtual assistant. Currently, I'm running in offline/template mode, but I can happily tell you that we meet Sundays at 9:00 AM (Bilingual) and 11:30 AM (English Celebration Service), and Wednesdays at 7:00 PM. Our address is 777 Sanctuary Drive, Houston, Texas. Let me know if you would like to plan a visit!`,
+      text: `Hello! Welcome to Sanctuary of Jesus Christ Evangelical Church House of Restoration. I'm Grace AI, your virtual assistant. Currently, I'm running in offline/template mode, but I can happily tell you that we meet on Sundays at 10:15 AM (Early Celebration - Praise & Testimonies), Tuesdays at 9:30 PM (Online Intercession Service), and Thursdays at 7:15 PM (Church Intercession Service). Our address is 11 Lower Maynard Road, Wynberg, Cape Town. Let me know if you would like to plan a visit!`,
     });
   }
 
@@ -102,7 +104,7 @@ app.post("/api/chat", async (req, res) => {
     console.error("Gemini Chat Error:", error);
     // Graceful offline fallback on error so the app never fails
     res.json({
-      text: `Hello! Welcome to Sanctuary of Jesus Christ Evangelical Church House of Restoration. I'm Grace AI, your virtual assistant. Currently, I'm running in an automated offline mode, but I can happily tell you that we meet Sundays at 9:00 AM (Bilingual) and 11:30 AM (English Celebration Service), and Wednesdays at 7:00 PM. Our address is 777 Sanctuary Drive, Houston, Texas. Let me know how I can help support you today!`,
+      text: `Hello! Welcome to Sanctuary of Jesus Christ Evangelical Church House of Restoration. I'm Grace AI, your virtual assistant. Currently, I'm running in an automated offline mode, but I can happily tell you that we meet on Sundays at 10:15 AM (Early Celebration - Praise & Testimonies), Tuesdays at 9:30 PM (Online Intercession Service), and Thursdays at 7:15 PM (Church Intercession Service). Our address is 11 Lower Maynard Road, Wynberg, Cape Town. Let me know how I can help support you today!`,
     });
   }
 });

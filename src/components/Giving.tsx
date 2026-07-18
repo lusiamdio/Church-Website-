@@ -25,7 +25,7 @@ export default function Giving() {
     } else if (amount < 75) {
       return {
         label: "Hands of Hope Family Groceries",
-        text: `Your contribution of $${amount} buys 1 full box of nutritious dry goods, rice, beans, milk, and canned vegetables, feeding 10 low-income families in Houston.`
+        text: `Your contribution of $${amount} buys 1 full box of nutritious dry goods, rice, beans, milk, and canned vegetables, feeding 10 low-income families in Cape Town.`
       };
     } else if (amount < 200) {
       return {
@@ -132,7 +132,7 @@ export default function Giving() {
 
                 <div className="pt-3 border-t border-white/5 mt-4 flex justify-between items-center text-[10px] text-slate-400">
                   <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Secure Allocation</span>
-                  <span>Restoration Way • Houston, TX</span>
+                  <span>Wynberg • Cape Town, South Africa</span>
                 </div>
               </div>
 
@@ -140,7 +140,7 @@ export default function Giving() {
               <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex gap-3.5 items-start">
                 <Info className="w-5 h-5 text-gold shrink-0 mt-0.5" />
                 <p className="text-[11px] text-slate-300 leading-relaxed">
-                  Sanctuary of Jesus Christ is a registered 501(c)(3) religious non-profit organization. All gifts are tax-deductible. Annual digital giving statements are automatically delivered via email for IRS records.
+                  Sanctuary of Jesus Christ is a registered non-profit organization (NPO). All gifts are tax-deductible according to Section 18A regulations. Annual digital giving statements are automatically delivered via email for tax records.
                 </p>
               </div>
             </div>
@@ -210,10 +210,10 @@ export default function Giving() {
                       className="w-full bg-navy-dark border border-white/15 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-royal-blue transition-colors"
                       id="giving-select-fund"
                     >
-                      <option value="Tithes & General Offerings">Tithes & Offerings 🪙</option>
-                      <option value="Global Missions Impact">Global Missions 🌍</option>
-                      <option value="Building Rebuilding Project">Building Fund ⛪</option>
-                      <option value="Hands of Hope Almsgiving">Alms / Outreach 📦</option>
+                      <option value="Tithes & General Offerings">Tithes & Offerings</option>
+                      <option value="Global Missions Impact">Global Missions</option>
+                      <option value="Building Rebuilding Project">Building Fund</option>
+                      <option value="Hands of Hope Almsgiving">Alms / Outreach</option>
                     </select>
                   </div>
 

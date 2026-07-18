@@ -4,6 +4,7 @@ import { Play, Calendar, HeartHandshake, BookOpen, Users, Compass, Check, MapPin
 interface HeroProps {
   visitorType: "new" | "member" | "seeker";
   triggerSermonOpen: (sermonId: string) => void;
+  setCurrentPage: (page: string) => void;
 }
 
 const backgroundImages = [
@@ -12,14 +13,14 @@ const backgroundImages = [
   "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1600", // Inspiring Sunrise
 ];
 
-export default function Hero({ visitorType, triggerSermonOpen }: HeroProps) {
+export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }: HeroProps) {
   const [bgIndex, setBgIndex] = useState(0);
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   
   // RSVP Form details
   const [rsvpName, setRsvpName] = useState("");
   const [rsvpEmail, setRsvpEmail] = useState("");
-  const [rsvpDate, setRsvpDate] = useState("Sunday 11:30 AM");
+  const [rsvpDate, setRsvpDate] = useState("Sunday 10:15 AM");
   const [rsvpKidsCount, setRsvpKidsCount] = useState(0);
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
 
@@ -39,8 +40,20 @@ export default function Hero({ visitorType, triggerSermonOpen }: HeroProps) {
   };
 
   const handleSectionScroll = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (id === "live") {
+      setCurrentPage("live");
+    } else if (id === "sermons") {
+      setCurrentPage("sermons");
+    } else if (id === "prayer" || id === "bible-study-result" || id === "bible-study-input") {
+      setCurrentPage("prayer");
+    } else if (id === "ministries") {
+      setCurrentPage("ministries");
+    } else if (id === "giving") {
+      setCurrentPage("giving");
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -123,8 +136,8 @@ export default function Hero({ visitorType, triggerSermonOpen }: HeroProps) {
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-xs text-white">Sunday Services</h4>
-                    <p className="text-[11px] text-slate-400">9:00 AM (Bilingual) • 11:30 AM (English Celebration)</p>
+                    <h4 className="font-semibold text-xs text-white">Sunday Early Celebration</h4>
+                    <p className="text-[11px] text-slate-400">Praise, Testimonies • 10:15 AM SAST</p>
                   </div>
                 </div>
 
@@ -134,7 +147,7 @@ export default function Hero({ visitorType, triggerSermonOpen }: HeroProps) {
                   </div>
                   <div>
                     <h4 className="font-semibold text-xs text-white">Location & Welcome</h4>
-                    <p className="text-[11px] text-slate-400">1200 Restoration Way, Houston. VIP parking for guests!</p>
+                    <p className="text-[11px] text-slate-400">11 Lower Maynard Road, Wynberg, Cape Town</p>
                   </div>
                 </div>
 
@@ -413,9 +426,9 @@ export default function Hero({ visitorType, triggerSermonOpen }: HeroProps) {
                         className="w-full bg-navy-dark border border-white/15 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-royal-blue transition-colors"
                         id="rsvp-select-date"
                       >
-                        <option value="Sunday 9:00 AM">Sunday 9:00 AM (Bilingual)</option>
-                        <option value="Sunday 11:30 AM">Sunday 11:30 AM (English)</option>
-                        <option value="Wednesday 7:00 PM">Wednesday 7:00 PM (Prayer)</option>
+                        <option value="Sunday 10:15 AM">Sunday 10:15 AM</option>
+                        <option value="Tuesday 9:30 PM">Tuesday 9:30 PM</option>
+                        <option value="Thursday 7:15 PM">Thursday 7:15 PM</option>
                       </select>
                     </div>
 

@@ -3,14 +3,14 @@ import { MessageSquare, X, Send, Sparkles, Volume2, VolumeX, Mic, MicOff, Langua
 import { Message } from "../types";
 
 const LANGUAGES = [
-  { code: "English", label: "English 🇺🇸" },
-  { code: "Spanish", label: "Español 🇪🇸" },
-  { code: "Portuguese", label: "Português 🇵🇹" },
-  { code: "French", label: "Français 🇫🇷" },
-  { code: "Swahili", label: "Kiswahili 🇰🇪" },
-  { code: "Zulu", label: "isiZulu 🇿🇦" },
-  { code: "Xitsonga", label: "Xitsonga 🇿🇦" },
-  { code: "Lingala", label: "Lingála 🇨🇬" },
+  { code: "English", label: "English (US)" },
+  { code: "Spanish", label: "Español (ES)" },
+  { code: "Portuguese", label: "Português (PT)" },
+  { code: "French", label: "Français (FR)" },
+  { code: "Swahili", label: "Kiswahili (KE)" },
+  { code: "Zulu", label: "isiZulu (ZA)" },
+  { code: "Xitsonga", label: "Xitsonga (ZA)" },
+  { code: "Lingala", label: "Lingála (CG)" },
 ];
 
 const SUGGESTIONS = [
@@ -101,7 +101,7 @@ export default function GraceAI() {
       console.error("Grace AI chat error:", error);
       const errorMessage: Message = {
         sender: "ai",
-        text: "I am having difficulty communicating with our theological server right now. To help you in the meantime, our Sunday bilingual service is at 9:00 AM, and our English Celebration Service is at 11:30 AM. How else can I assist?",
+        text: "I am having difficulty communicating with our theological server right now. To help you in the meantime, our Sunday Early Celebration is at 10:15 AM, Tuesday Online Intercession is at 9:30 PM, and Thursday Church Intercession is at 7:15 PM (SAST). How else can I assist?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, errorMessage]);

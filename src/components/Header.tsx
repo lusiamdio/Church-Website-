@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Cross, Users, BookOpen, HeartHandshake, CreditCard, Shield, Accessibility, Smile, Sparkles, Sliders, Volume2, Type, Eye, Check } from "lucide-react";
+import { Cross, Users, BookOpen, HeartHandshake, CreditCard, Shield, Accessibility, Smile, Sparkles, Sliders, Volume2, Type, Eye, Check, ChevronDown, Home, Compass } from "lucide-react";
 
 interface HeaderProps {
   visitorType: "new" | "member" | "seeker";
@@ -12,6 +12,8 @@ interface HeaderProps {
   setTextScale: (val: "normal" | "large" | "extra") => void;
   showAdminPortal: boolean;
   setShowAdminPortal: (val: boolean) => void;
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
 }
 
 export default function Header({
@@ -25,24 +27,23 @@ export default function Header({
   setTextScale,
   showAdminPortal,
   setShowAdminPortal,
+  currentPage,
+  setCurrentPage,
 }: HeaderProps) {
   const [showAccessMenu, setShowAccessMenu] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const navItems = [
-    { id: "live", label: "Live", icon: Sparkles },
-    { id: "sermons", label: "Sermons", icon: BookOpen },
-    { id: "prayer", label: "Pray", icon: HeartHandshake },
-    { id: "ministries", label: "Ministries", icon: Users },
-    { id: "giving", label: "Give", icon: CreditCard },
+  const dropdownItems = [
+    { id: "live", label: "Live", icon: Sparkles, desc: "Bilingual Streams & Worship" },
+    { id: "sermons", label: "Sermons", icon: BookOpen, desc: "Apostolic Messages Archive" },
+    { id: "prayer", label: "Pray", icon: HeartHandshake, desc: "Prayer Requests & Study" },
+    { id: "ministries", label: "Ministries", icon: Users, desc: "Tribes, Small Groups & Circles" },
+    { id: "giving", label: "Give", icon: CreditCard, desc: "Tithes, Offerings & Seeds" },
   ];
 
-  const handleNavClick = (id: string) => {
-    setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleDropdownSelect = (id: string) => {
+    setIsDropdownOpen(false);
+    setCurrentPage(id);
   };
 
   return (
@@ -50,12 +51,12 @@ export default function Header({
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Brand Logo */}
         <div 
-          onClick={() => handleNavClick("hero")} 
+          onClick={() => handleDropdownSelect("home")} 
           className="flex items-center gap-2.5 cursor-pointer group"
           id="church-header-logo"
         >
-          <div className="bg-royal-blue p-2 rounded-xl group-hover:bg-gold transition-colors duration-300 shadow">
-            <span className="text-sm font-extrabold text-white">⛪</span>
+          <div className="bg-royal-blue p-2 rounded-xl group-hover:bg-gold transition-colors duration-300 shadow flex items-center justify-center">
+            <Cross className="w-3.5 h-3.5 text-white" />
           </div>
           <div className="text-left">
             <h1 className="font-display font-extrabold text-sm md:text-base tracking-tight leading-none text-white group-hover:text-gold transition-colors">
@@ -67,65 +68,72 @@ export default function Header({
           </div>
         </div>
 
-        {/* Navigation Anchors */}
-        <nav className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  isActive
-                    ? "bg-royal-blue text-white shadow-md shadow-royal-blue/20"
-                    : "text-slate-300 hover:text-white hover:bg-white/5"
-                }`}
-                id={`nav-anchor-${item.id}`}
-              >
-                <Icon className="w-3.5 h-3.5 shrink-0" />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+        {/* Navigation Dropdown (Dropbox for Ministries) */}
+        <div className="relative" id="ministries-dropbox-container">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 px-5 py-2.5 bg-royal-blue/10 hover:bg-royal-blue/25 text-gold border border-gold/30 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow shadow-gold/5 hover:border-gold cursor-pointer"
+            id="btn-ministries-dropbox"
+          >
+            <ChevronDown className={`w-4 h-4 text-gold transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`} />
+            <span>Ministries Dropdown</span>
+            {currentPage !== "home" && (
+              <span className="ml-1 px-2 py-0.5 bg-royal-blue text-white rounded text-[9px] lowercase font-normal capitalize">
+                {currentPage === "prayer" ? "pray" : currentPage}
+              </span>
+            )}
+          </button>
+
+          {isDropdownOpen && (
+            <div 
+              className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 mt-2 bg-navy-dark border border-gold/35 rounded-2xl p-2 w-[240px] shadow-2xl z-50 text-left fade-in-up"
+              id="ministries-dropbox-menu"
+            >
+              <div className="px-3 py-1.5 border-b border-white/5 mb-1.5 flex justify-between items-center">
+                <span className="text-[9px] uppercase tracking-widest text-slate-400 font-extrabold">Ministries & Pages</span>
+                <button 
+                  onClick={() => handleDropdownSelect("home")}
+                  className="text-[9px] text-sky-400 hover:text-white flex items-center gap-0.5"
+                  title="Go to Home"
+                >
+                  <Home className="w-3 h-3" /> Home
+                </button>
+              </div>
+
+              <div className="space-y-1">
+                {dropdownItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = currentPage === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleDropdownSelect(item.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all cursor-pointer ${
+                        isActive
+                          ? "bg-royal-blue text-white font-bold"
+                          : "text-slate-300 hover:text-white hover:bg-white/5"
+                      }`}
+                      id={`dropbox-link-${item.id}`}
+                    >
+                      <div className={`p-1.5 rounded-lg ${isActive ? "bg-white/20 text-white" : "bg-white/5 text-slate-300 group-hover:text-white"}`}>
+                        <Icon className="w-4 h-4 shrink-0" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold leading-none">{item.label}</div>
+                        <div className={`text-[9px] mt-0.5 leading-none ${isActive ? "text-sky-200" : "text-slate-400"}`}>
+                          {item.desc}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Right Controls Area */}
         <div className="flex items-center gap-3 flex-wrap justify-center">
-          {/* AI Persona Selector Slider */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-1 flex items-center shadow-inner">
-            <button
-              onClick={() => setVisitorType("new")}
-              className={`px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide transition-all ${
-                visitorType === "new" ? "bg-royal-blue text-white shadow" : "text-slate-400 hover:text-white"
-              }`}
-              title="Content tailored for first-time guests"
-              id="switch-persona-new"
-            >
-              Newcomer 🌟
-            </button>
-            <button
-              onClick={() => setVisitorType("seeker")}
-              className={`px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide transition-all ${
-                visitorType === "seeker" ? "bg-royal-blue text-white shadow" : "text-slate-400 hover:text-white"
-              }`}
-              title="Content tailored for spiritual seekers & study"
-              id="switch-persona-seeker"
-            >
-              Seeker 🧭
-            </button>
-            <button
-              onClick={() => setVisitorType("member")}
-              className={`px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide transition-all ${
-                visitorType === "member" ? "bg-royal-blue text-white shadow" : "text-slate-400 hover:text-white"
-              }`}
-              title="Content tailored for members and regular servers"
-              id="switch-persona-member"
-            >
-              Member 🛡️
-            </button>
-          </div>
-
           {/* Accessibility Hub Trigger */}
           <div className="relative">
             <button
@@ -219,20 +227,6 @@ export default function Header({
               </div>
             )}
           </div>
-
-          {/* Pastoral Admin Switcher */}
-          <button
-            onClick={() => setShowAdminPortal(!showAdminPortal)}
-            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all ${
-              showAdminPortal
-                ? "bg-gold border-gold text-navy-dark"
-                : "border-white/10 text-slate-300 bg-white/5 hover:border-gold hover:text-gold"
-            }`}
-            id="btn-header-admin-portal"
-          >
-            <Shield className="w-3.5 h-3.5" />
-            <span>Staff Portal</span>
-          </button>
         </div>
       </div>
     </header>

@@ -308,8 +308,8 @@ export default function SermonLibrary({ selectedSermonId, clearSermonSelection }
                   <span className="text-[10px] font-bold uppercase tracking-widest text-rose-400 block">Inferred from prayer wall</span>
                   <div className="flex flex-wrap gap-1.5">
                     {inferredNeeds.map((need) => (
-                      <span key={need} className="bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] px-2.5 py-1 rounded-full font-bold">
-                        Seeking {need} 🙏
+                      <span key={need} className="bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] px-2.5 py-1 rounded-full font-bold flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" /> Seeking {need}
                       </span>
                     ))}
                   </div>

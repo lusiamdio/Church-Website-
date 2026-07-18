@@ -57,7 +57,7 @@ export default function StaffDashboard() {
       console.error("Event planner error:", err);
       setPlannerResult({
         posterText: `REST AND RESTORE YOUTH GATHERING\nTheme: Set Ablaze\nLocation: Sanctuary Youth Hall`,
-        socialPost: "🔥 Ready for what is next? Join us this Friday at 7:30 PM for massive fellowship, great music, and real community! #RestorationYouth",
+        socialPost: "Ready for what is next? Join us this Friday at 7:30 PM for massive fellowship, great music, and real community! #RestorationYouth",
         emailCampaign: "Subject: Next Friday is Youth Restoration Night!\n\nDear Families,\nWe invite all high schoolers and teenagers to gather with us next Friday. Apostle David Martinez will be praying over the youth.",
         schedule: "6:30 PM - Team Prayer\n7:00 PM - Doors open\n7:30 PM - Worship & Message\n9:00 PM - Tacos & Fellowship",
         volunteerAssignments: "Ushers: Kingdom Kids volunteers\nSound Team: Media sector\nSnack bar: United in Grace family circle"
