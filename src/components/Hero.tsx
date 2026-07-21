@@ -3,7 +3,6 @@ import { Play, Calendar, HeartHandshake, BookOpen, Users, Compass, Check, MapPin
 
 interface HeroProps {
   visitorType: "new" | "member" | "seeker";
-  triggerSermonOpen: (sermonId: string) => void;
   setCurrentPage: (page: string) => void;
 }
 
@@ -13,7 +12,7 @@ const backgroundImages = [
   "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1600", // Inspiring Sunrise
 ];
 
-export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }: HeroProps) {
+export default function Hero({ visitorType, setCurrentPage }: HeroProps) {
   const [bgIndex, setBgIndex] = useState(0);
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   
@@ -42,10 +41,6 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
   const handleSectionScroll = (id: string) => {
     if (id === "live") {
       setCurrentPage("live");
-    } else if (id === "sermons") {
-      setCurrentPage("sermons");
-    } else if (id === "prayer" || id === "bible-study-result" || id === "bible-study-input") {
-      setCurrentPage("prayer");
     } else if (id === "ministries") {
       setCurrentPage("ministries");
     } else if (id === "giving") {
@@ -173,7 +168,7 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
           )}
 
           {visitorType === "seeker" && (
-            /* Seeker Content Card (AI Bible Study / Hope Focus) */
+            /* Seeker Content Card */
             <div className="glass-panel rounded-2xl p-6 border border-gold/30 shadow-2xl relative overflow-hidden fade-in-up" id="personalized-card-seeker">
               <div className="absolute top-0 right-0 bg-gold/25 text-gold-light text-[10px] uppercase font-bold tracking-widest px-3.5 py-1 rounded-bl-xl border-l border-b border-white/10 font-display font-extrabold">
                 Seeker Blueprint
@@ -182,37 +177,37 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
                 <Sparkles className="w-4 h-4" /> Exploring Faith?
               </h3>
               <p className="text-xs text-slate-300 mb-5 leading-relaxed font-sans">
-                It's completely okay to have questions, doubts, or feel anxious. God's restorative word is here to anchor your soul. Try our interactive tools:
+                It's completely okay to have questions or be searching for community. Welcome to our restoration family!
               </p>
 
               <div className="space-y-4 text-left">
-                <div className="flex items-start gap-3.5 bg-white/5 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer" onClick={() => handleSectionScroll("bible-study-result")}>
+                <div className="flex items-start gap-3.5 bg-white/5 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer" onClick={() => handleSectionScroll("ministries")}>
                   <div className="bg-gold p-2 rounded-lg text-navy-dark">
-                    <BookOpen className="w-4 h-4" />
+                    <Users className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-xs text-white">AI Bible Companion</h4>
-                    <p className="text-[11px] text-slate-400">Type how you feel, and receive custom devotional care and prayers instantly.</p>
+                    <h4 className="font-semibold text-xs text-white">Find A Circle</h4>
+                    <p className="text-[11px] text-slate-400">Discover small groups and connect with welcoming friends.</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 bg-white/5 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer" onClick={() => handleSectionScroll("prayer")}>
-                  <div className="bg-rose-500 p-2 rounded-lg text-white">
-                    <HeartHandshake className="w-4 h-4" />
+                <div className="flex items-start gap-3.5 bg-white/5 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer" onClick={() => handleSectionScroll("live")}>
+                  <div className="bg-sky-500 p-2 rounded-lg text-white">
+                    <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-xs text-white">Prayer Wall</h4>
-                    <p className="text-[11px] text-slate-400">Submit requests or view prayers from our beautiful intercession family.</p>
+                    <h4 className="font-semibold text-xs text-white">Live Service Stream</h4>
+                    <p className="text-[11px] text-slate-400">Experience interactive bilingual restoration worship online.</p>
                   </div>
                 </div>
               </div>
 
               <button
-                onClick={() => handleSectionScroll("bible-study-input")}
+                onClick={() => handleSectionScroll("ministries")}
                 className="mt-5 w-full py-3 bg-gradient-to-r from-royal-blue to-blue-600 text-white hover:opacity-90 transition-all font-bold rounded-xl text-xs uppercase tracking-wide flex items-center justify-center gap-1.5 cursor-pointer"
                 id="btn-goto-study"
               >
-                <span>Soothe Your Soul Now</span>
+                <span>Discover Fellowship Circles</span>
               </button>
             </div>
           )}
@@ -226,46 +221,25 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
               <h3 className="font-display text-lg font-bold mb-3">Welcome Back, Family!</h3>
               
               <div className="space-y-4 text-left">
-                {/* Last watched sermon recommendation */}
-                <div className="bg-white/5 border border-white/5 rounded-xl p-3.5">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] uppercase text-gold font-bold tracking-wider">Continue Watching</span>
-                    <span className="text-[10px] text-slate-400 font-mono">80% watched</span>
-                  </div>
-                  <h4 className="font-bold text-xs leading-tight mb-1">The Architecture of Restoration</h4>
-                  <p className="text-[10px] text-slate-400 mb-2">By Apostle David Martinez</p>
-                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="bg-royal-blue h-full w-[80%]" />
-                  </div>
-                  <button
-                    onClick={() => triggerSermonOpen("s1")}
-                    className="mt-2 text-[10px] text-sky-400 hover:text-white font-bold flex items-center gap-1 cursor-pointer"
-                    id="btn-continue-sermon"
-                  >
-                    <Play className="w-3 h-3 fill-sky-400 hover:fill-white" /> Resume Sermon Study
-                  </button>
-                </div>
-
-                {/* Study Recommendation */}
                 <div className="bg-white/5 border border-white/5 rounded-xl p-3 flex gap-3 items-center">
-                  <BookOpen className="w-5 h-5 text-royal-blue shrink-0" />
+                  <Users className="w-5 h-5 text-royal-blue shrink-0" />
                   <div>
-                    <h5 className="font-semibold text-xs">Today's Study</h5>
-                    <p className="text-[10px] text-slate-400">Restoration Devotional & Weekly Scriptures</p>
+                    <h5 className="font-semibold text-xs">Active Restoration Circles</h5>
+                    <p className="text-[10px] text-slate-400">Join life groups and volunteer opportunities</p>
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center gap-2 pt-1">
                   <button
                     onClick={() => handleSectionScroll("ministries")}
-                    className="flex-1 py-2 text-center border border-white/10 hover:border-royal-blue hover:bg-royal-blue/10 rounded-lg text-[10px] font-bold uppercase tracking-wider"
+                    className="flex-1 py-2.5 text-center border border-white/10 hover:border-royal-blue hover:bg-royal-blue/10 rounded-lg text-[10px] font-bold uppercase tracking-wider"
                     id="btn-member-smallgroups"
                   >
                     My Life Group
                   </button>
                   <button
                     onClick={() => handleSectionScroll("giving")}
-                    className="flex-1 py-2 text-center bg-royal-blue hover:bg-blue-600 rounded-lg text-[10px] font-bold uppercase tracking-wider"
+                    className="flex-1 py-2.5 text-center bg-royal-blue hover:bg-blue-600 rounded-lg text-[10px] font-bold uppercase tracking-wider"
                     id="btn-member-give"
                   >
                     Manage Giving
@@ -278,7 +252,7 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
       </div>
 
       {/* Floating Cards (Bottom section) */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+      <div className="relative z-10 max-w-7xl mx-auto w-full mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Card 1: Upcoming Event */}
         <div
           onClick={() => handleSectionScroll("ministries")}
@@ -295,39 +269,7 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
           </div>
         </div>
 
-        {/* Card 2: Prayer Request */}
-        <div
-          onClick={() => handleSectionScroll("prayer")}
-          className="glass-panel p-4 rounded-xl border border-white/5 cursor-pointer glass-card-hover text-left flex flex-col justify-between h-[120px]"
-          id="hero-card-prayer"
-        >
-          <div className="flex items-center justify-between text-rose-400">
-            <HeartHandshake className="w-5 h-5" />
-            <span className="text-[9px] uppercase tracking-wider font-bold">Prayer</span>
-          </div>
-          <div>
-            <h4 className="font-bold text-xs">Submit Request</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">We stand with you</p>
-          </div>
-        </div>
-
-        {/* Card 3: Latest Sermon */}
-        <div
-          onClick={() => triggerSermonOpen("s1")}
-          className="glass-panel p-4 rounded-xl border border-white/5 cursor-pointer glass-card-hover text-left flex flex-col justify-between h-[120px]"
-          id="hero-card-sermon"
-        >
-          <div className="flex items-center justify-between text-sky-400">
-            <BookOpen className="w-5 h-5" />
-            <span className="text-[9px] uppercase tracking-wider font-bold">Sermon</span>
-          </div>
-          <div>
-            <h4 className="font-bold text-xs truncate">Divine Architecture</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Apostle David Martinez</p>
-          </div>
-        </div>
-
-        {/* Card 4: Join Small Group */}
+        {/* Card 2: Join Small Group */}
         <div
           onClick={() => handleSectionScroll("ministries")}
           className="glass-panel p-4 rounded-xl border border-white/5 cursor-pointer glass-card-hover text-left flex flex-col justify-between h-[120px]"
@@ -343,10 +285,10 @@ export default function Hero({ visitorType, triggerSermonOpen, setCurrentPage }:
           </div>
         </div>
 
-        {/* Card 5: Live Service Status */}
+        {/* Card 3: Live Service Status */}
         <div
           onClick={() => handleSectionScroll("live")}
-          className="glass-panel p-4 rounded-xl border border-white/5 cursor-pointer glass-card-hover text-left flex flex-col justify-between h-[120px] col-span-2 md:col-span-1"
+          className="glass-panel p-4 rounded-xl border border-white/5 cursor-pointer glass-card-hover text-left flex flex-col justify-between h-[120px]"
           id="hero-card-live"
         >
           <div className="flex items-center justify-between">

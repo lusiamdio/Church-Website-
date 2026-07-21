@@ -35,7 +35,7 @@ export default function StaffDashboard() {
     avgAttendance: 450,
     activeVolunteers: 124,
     monthlyGiving: "$34,500",
-    prayerRequests: 42,
+    smallGroupMembers: 186,
   });
 
   const handleRunEventPlanner = async (e: React.FormEvent) => {
@@ -166,9 +166,9 @@ export default function StaffDashboard() {
             </div>
 
             <div className="bg-navy-light/35 border border-white/5 rounded-2xl p-5 text-left space-y-1">
-              <span className="text-[10px] uppercase text-slate-400 font-bold font-display">Active Prayers</span>
-              <p className="font-display font-bold text-2xl text-rose-400">{metrics.prayerRequests} <span className="text-xs text-slate-500 font-normal">requests</span></p>
-              <span className="text-[9px] text-slate-500 block">Active intercession on the public wall</span>
+              <span className="text-[10px] uppercase text-slate-400 font-bold font-display">Small Group Members</span>
+              <p className="font-display font-bold text-2xl text-sky-400">{metrics.smallGroupMembers} <span className="text-xs text-slate-500 font-normal">enrolled</span></p>
+              <span className="text-[9px] text-slate-500 block">Active participants in weekly circles</span>
             </div>
           </div>
 

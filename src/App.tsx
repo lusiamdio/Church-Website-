@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import LiveChurch from "./components/LiveChurch";
-import SermonLibrary from "./components/SermonLibrary";
-import BibleStudy from "./components/BibleStudy";
-import PrayerCenter from "./components/PrayerCenter";
 import Ministries from "./components/Ministries";
 import Giving from "./components/Giving";
 import StaffDashboard from "./components/StaffDashboard";
@@ -24,11 +21,8 @@ export default function App() {
   // Admin access state
   const [showAdminPortal, setShowAdminPortal] = useState(false);
 
-  // Navigation state: 'home', 'live', 'sermons', 'prayer', 'ministries', 'giving'
+  // Navigation state: 'home', 'live', 'ministries', 'giving'
   const [currentPage, setCurrentPage] = useState<string>("home");
-
-  // External trigger navigation for sermons
-  const [selectedSermonId, setSelectedSermonId] = useState<string | null>(null);
 
   // Mailing list state
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -73,11 +67,6 @@ export default function App() {
     }
   };
 
-  const handleSermonSelection = (sermonId: string) => {
-    setSelectedSermonId(sermonId);
-    setCurrentPage("sermons");
-  };
-
   return (
     <div 
       className={`min-h-screen bg-navy-dark text-slate-100 flex flex-col font-sans selection:bg-gold selection:text-navy-dark ${getTextScaleClass()}`}
@@ -106,7 +95,6 @@ export default function App() {
           <>
             <Hero 
               visitorType={visitorType} 
-              triggerSermonOpen={handleSermonSelection}
               setCurrentPage={setCurrentPage}
             />
             
@@ -121,7 +109,7 @@ export default function App() {
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Live Webpage Card */}
                   <div 
                     onClick={() => setCurrentPage("live")}
@@ -133,34 +121,6 @@ export default function App() {
                     <div>
                       <h4 className="text-base font-extrabold text-white group-hover:text-gold transition-colors">Live Broadcast</h4>
                       <p className="text-[11px] text-slate-400 mt-1 leading-normal">Join services and watch live bilingual restoration worship streams.</p>
-                    </div>
-                  </div>
-
-                  {/* Sermons Webpage Card */}
-                  <div 
-                    onClick={() => setCurrentPage("sermons")}
-                    className="group bg-navy-light/25 border border-white/5 rounded-2xl p-6 hover:border-gold hover:bg-royal-blue/10 cursor-pointer transition-all duration-300 flex flex-col justify-between h-[220px] shadow"
-                  >
-                    <div className="w-12 h-12 bg-gold/10 text-gold rounded-xl flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
-                      <BookOpen className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="text-base font-extrabold text-white group-hover:text-gold transition-colors">Sermon Study</h4>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-normal">Study weekly outlines, key references, transcripts and guides.</p>
-                    </div>
-                  </div>
-
-                  {/* Pray Webpage Card */}
-                  <div 
-                    onClick={() => setCurrentPage("prayer")}
-                    className="group bg-navy-light/25 border border-white/5 rounded-2xl p-6 hover:border-gold hover:bg-royal-blue/10 cursor-pointer transition-all duration-300 flex flex-col justify-between h-[220px] shadow"
-                  >
-                    <div className="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
-                      <HeartHandshake className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="text-base font-extrabold text-white group-hover:text-gold transition-colors">Prayer Wall</h4>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-normal">Send prayer requests and access interactive scripture study tools.</p>
                     </div>
                   </div>
 
@@ -199,22 +159,6 @@ export default function App() {
 
         {/* Live Broadcast Feed (Dedicated Webpage View) */}
         {currentPage === "live" && <LiveChurch />}
-
-        {/* Dynamic Netflix-style Sermon Catalog (Dedicated Webpage View) */}
-        {currentPage === "sermons" && (
-          <SermonLibrary 
-            selectedSermonId={selectedSermonId} 
-            clearSermonSelection={() => setSelectedSermonId(null)}
-          />
-        )}
-
-        {/* Interactive Intercession Board / Prayer Wall & Bible Study (Dedicated Webpage View) */}
-        {currentPage === "prayer" && (
-          <div className="space-y-6">
-            <PrayerCenter />
-            <BibleStudy />
-          </div>
-        )}
 
         {/* Ministries & Tribes Segment + Volunteer Matching Quiz (Dedicated Webpage View) */}
         {currentPage === "ministries" && <Ministries />}
@@ -258,7 +202,7 @@ export default function App() {
               <a href="https://facebook.com" target="_blank" className="p-2.5 bg-white/5 hover:bg-royal-blue hover:text-white rounded-xl text-slate-400 transition-colors" title="Facebook Page">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="https://youtube.com" target="_blank" className="p-2.5 bg-white/5 hover:bg-royal-blue hover:text-white rounded-xl text-slate-400 transition-colors" title="Youtube Streams">
+              <a href="https://www.youtube.com/channel/UC3N7NUaok4ioUyhdVyB-JsA" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 hover:bg-rose-600 hover:text-white rounded-xl text-slate-400 transition-colors" title="House of Restoration TV Channel">
                 <Youtube className="w-4 h-4" />
               </a>
               <a href="https://instagram.com" target="_blank" className="p-2.5 bg-white/5 hover:bg-royal-blue hover:text-white rounded-xl text-slate-400 transition-colors" title="Instagram Daily devotion">

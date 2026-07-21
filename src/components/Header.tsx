@@ -35,8 +35,6 @@ export default function Header({
 
   const dropdownItems = [
     { id: "live", label: "Live", icon: Sparkles, desc: "Bilingual Streams & Worship" },
-    { id: "sermons", label: "Sermons", icon: BookOpen, desc: "Apostolic Messages Archive" },
-    { id: "prayer", label: "Pray", icon: HeartHandshake, desc: "Prayer Requests & Study" },
     { id: "ministries", label: "Ministries", icon: Users, desc: "Tribes, Small Groups & Circles" },
     { id: "giving", label: "Give", icon: CreditCard, desc: "Tithes, Offerings & Seeds" },
   ];
@@ -79,7 +77,7 @@ export default function Header({
             <span>Ministries Dropdown</span>
             {currentPage !== "home" && (
               <span className="ml-1 px-2 py-0.5 bg-royal-blue text-white rounded text-[9px] lowercase font-normal capitalize">
-                {currentPage === "prayer" ? "pray" : currentPage}
+                {currentPage}
               </span>
             )}
           </button>
