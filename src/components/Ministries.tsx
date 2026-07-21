@@ -49,10 +49,10 @@ export default function Ministries() {
     let matchDescription = "You love welcoming new faces, providing warm food, and establishing an atmosphere of comfort and grace. Since you excel in social contacts on weekends, you are a perfect fit for our greeting teams!";
 
     if (q1 === "music") {
-      recommendedRole = "Sanctuary Praise Worship Vocalist / Instrumentalist";
+      recommendedRole = "The Quohelettes Worship Vocalist / Instrumentalist";
       spiritualGiftsText = "Worship, Creative Prophesy, and Music Excellence";
-      recommendedMinistry = "Sanctuary Praise Worship Team";
-      matchDescription = "You have a natural resonance with music, instruments, and singing. Your willingness to serve during Sunday worship or midweek practices fits perfectly with Sanctuary Praise. Let's lift up Jesus together!";
+      recommendedMinistry = "The Quohelettes Worship Team";
+      matchDescription = "You have a natural resonance with music, instruments, and singing. Your willingness to serve during Sunday worship or midweek practices fits perfectly with The Quohelettes. Let's lift up Jesus together!";
     } else if (q1 === "media" || q3 === "tech") {
       recommendedRole = "A/V Technician / Social Media content creator";
       spiritualGiftsText = "Administration, Craftsmanship, and Communication";

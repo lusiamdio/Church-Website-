@@ -7,9 +7,9 @@ interface HeroProps {
 }
 
 const backgroundImages = [
-  "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=1600", // Glorious sanctuary lighting
-  "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1600", // Cinematic Worship
-  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1600", // Inspiring Sunrise
+  "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/626447856_122177535308392779_8420774976801370108_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1248&ctp=s2048x1248&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=qlvJPjHsD1cQ7kNvwH5PPc1&_nc_oc=AdpH5eEYrW7MMRQJ6BOvRJKP6YnBe3i7R9NBWKS6L15GzySH9gfiMFvgSysB3XPOthw&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=VTWlkeKiMRXXqlgtvlVUDA&_nc_ss=7b2a8&oh=00_AQAHwGUdsCtbTrjIAUxZ52wXLRDUCy0DyOsvY8Ed1RoXoQ&oe=6A65A839",
+  "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/624572825_122177535260392779_319564477502090915_n.jpg?stp=dst-jpg_tt6&cstp=mx1819x817&ctp=s1819x817&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xQ3fzEP6XWgQ7kNvwGVmWtb&_nc_oc=Ado8PxTINxY8P4gZbOHpcRd7BAB0SY__g9lvBNXL8-UCw4Czdt7kmSH_-DncemEulN0&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=uM4YrPh0k3vFtt0lx5lJQw&_nc_ss=7b2a8&oh=00_AQDrYdOvEoMnC3fMFq3YUnfJxuGIYddxfcTxTAzgzQ7X4w&oe=6A65A63F",
+  "https://scontent-cpt1-1.xx.fbcdn.net/v/t39.30808-6/625009671_122177535212392779_6520615516891370886_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1152&ctp=s2048x1152&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uqkV763AeHgQ7kNvwHrolBh&_nc_oc=Adod1z2wawJLhO5Az8rLEqifIdQo5PRAJA7Ajsq4KUdi9p_jcBdV9jD_RTY1uCeqWwE&_nc_zt=23&_nc_ht=scontent-cpt1-1.xx&_nc_gid=uM4YrPh0k3vFtt0lx5lJQw&_nc_ss=7b2a8&oh=00_AQCRDg6qtejfC2a5wsAxkOroqtgzVDHJ0ugwr_lVl-gvSw&oe=6A65955F",
 ];
 
 export default function Hero({ visitorType, setCurrentPage }: HeroProps) {

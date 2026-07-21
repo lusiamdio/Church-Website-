@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Cross, Users, BookOpen, HeartHandshake, CreditCard, Shield, Accessibility, Smile, Sparkles, Sliders, Volume2, Type, Eye, Check, ChevronDown, Home, Compass } from "lucide-react";
+import { Church, Users, BookOpen, HeartHandshake, CreditCard, Shield, Accessibility, Smile, Sparkles, Sliders, Volume2, Type, Eye, Check, ChevronDown, Home, Compass, Newspaper } from "lucide-react";
 
 interface HeaderProps {
   visitorType: "new" | "member" | "seeker";
@@ -34,6 +34,7 @@ export default function Header({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const dropdownItems = [
+    { id: "journal", label: "Forbes Journal", icon: Newspaper, desc: "Christian Devotionals & News" },
     { id: "live", label: "Live", icon: Sparkles, desc: "Bilingual Streams & Worship" },
     { id: "ministries", label: "Ministries", icon: Users, desc: "Tribes, Small Groups & Circles" },
     { id: "giving", label: "Give", icon: CreditCard, desc: "Tithes, Offerings & Seeds" },
@@ -50,17 +51,17 @@ export default function Header({
         {/* Brand Logo */}
         <div 
           onClick={() => handleDropdownSelect("home")} 
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
           id="church-header-logo"
         >
-          <div className="bg-royal-blue p-2 rounded-xl group-hover:bg-gold transition-colors duration-300 shadow flex items-center justify-center">
-            <Cross className="w-3.5 h-3.5 text-white" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-royal-blue via-navy-light to-gold/90 border border-gold/40 p-2 shadow-lg shadow-royal-blue/20 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-gold transition-all duration-300">
+            <Church className="w-5 h-5 text-white drop-shadow" />
           </div>
           <div className="text-left">
             <h1 className="font-display font-extrabold text-sm md:text-base tracking-tight leading-none text-white group-hover:text-gold transition-colors">
               SANCTUARY OF JESUS CHRIST
             </h1>
-            <p className="text-[9px] text-slate-300 uppercase tracking-widest font-bold leading-none mt-0.5">
+            <p className="text-[9px] text-gold uppercase tracking-widest font-bold leading-none mt-1">
               House of Restoration
             </p>
           </div>

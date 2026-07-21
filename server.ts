@@ -51,7 +51,7 @@ Church Profile:
   - Virtuous Women of Restoration: Empowering women's ministry, prayer breakfasts every 2nd Saturday.
   - Men of Honor: Character-building men's group, monthly fellowship every 1st Saturday.
   - United in Grace: Marriage and family ministry, counseling, and dynamic date nights.
-  - Sanctuary Praise (Music/Worship): Premium acoustic and electronic modern worship.
+  - The Quohelettes (Music/Worship): Premium acoustic and electronic modern worship.
   - Global Impact (Missions): Supporting missionaries in Latin America, Africa, and Asia.
   - Hands of Hope (Outreach): Food pantry, clothing drives, and community rehabilitation projects.
 

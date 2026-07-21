@@ -192,7 +192,7 @@ export const ministriesData: Ministry[] = [
   },
   {
     id: "ministry-6",
-    name: "Sanctuary Praise",
+    name: "The Quohelettes",
     description: "Our music and worship ministry dedicated to creating an environment of raw, authentic, and high-quality worship that invites the heavy and beautiful presence of God.",
     leader: "Worship Pastor Daniel Song",
     image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600",

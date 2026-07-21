@@ -6,8 +6,10 @@ import Ministries from "./components/Ministries";
 import Giving from "./components/Giving";
 import StaffDashboard from "./components/StaffDashboard";
 import GraceAI from "./components/GraceAI";
+import ForbesJournalSection from "./components/ForbesJournalSection";
+import BlogArticlePage from "./components/BlogArticlePage";
 
-import { Calendar, MapPin, Phone, Mail, Compass, Shield, Clock, Facebook, Youtube, Instagram, Heart, Tv, BookOpen, HeartHandshake, Users, CreditCard, Cross, Map, Key, Send, Check } from "lucide-react";
+import { Church, Calendar, MapPin, Phone, Mail, Compass, Shield, Clock, Facebook, Youtube, Instagram, Heart, Tv, BookOpen, HeartHandshake, Users, CreditCard, Map, Key, Send, Check, Newspaper } from "lucide-react";
 
 export default function App() {
   // Personalization State
@@ -21,8 +23,9 @@ export default function App() {
   // Admin access state
   const [showAdminPortal, setShowAdminPortal] = useState(false);
 
-  // Navigation state: 'home', 'live', 'ministries', 'giving'
+  // Navigation state: 'home', 'journal', 'blog-article', 'live', 'ministries', 'giving'
   const [currentPage, setCurrentPage] = useState<string>("home");
+  const [selectedArticleId, setSelectedArticleId] = useState<string>("blog-1");
 
   // Mailing list state
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -109,7 +112,21 @@ export default function App() {
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {/* Journal Webpage Card */}
+                  <div 
+                    onClick={() => setCurrentPage("journal")}
+                    className="group bg-navy-light/25 border border-gold/30 hover:border-gold hover:bg-gold/10 cursor-pointer transition-all duration-300 flex flex-col justify-between h-[220px] shadow"
+                  >
+                    <div className="w-12 h-12 bg-gold/10 text-gold rounded-xl flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
+                      <Newspaper className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-extrabold text-white group-hover:text-gold transition-colors">Forbes Journal</h4>
+                      <p className="text-[11px] text-slate-400 mt-1 leading-normal">Read Christian devotionals, news, and leadership intelligence.</p>
+                    </div>
+                  </div>
+
                   {/* Live Webpage Card */}
                   <div 
                     onClick={() => setCurrentPage("live")}
@@ -154,7 +171,34 @@ export default function App() {
                 </div>
               </div>
             </section>
+
+            {/* Forbes Style News & Blogs Section directly on Landing Page */}
+            <ForbesJournalSection 
+              onSelectArticle={(id) => {
+                setSelectedArticleId(id);
+                setCurrentPage("blog-article");
+              }} 
+            />
           </>
+        )}
+
+        {/* Forbes Journal Dedicated Webpage View */}
+        {currentPage === "journal" && (
+          <ForbesJournalSection 
+            onSelectArticle={(id) => {
+              setSelectedArticleId(id);
+              setCurrentPage("blog-article");
+            }} 
+          />
+        )}
+
+        {/* Full Webpage Article View (Opens in a new webpage view and NOT as a modal) */}
+        {currentPage === "blog-article" && (
+          <BlogArticlePage 
+            articleId={selectedArticleId}
+            onBack={() => setCurrentPage("journal")}
+            onSelectArticle={(id) => setSelectedArticleId(id)}
+          />
         )}
 
         {/* Live Broadcast Feed (Dedicated Webpage View) */}
@@ -183,13 +227,13 @@ export default function App() {
           
           {/* Column 1: Church Bio & Vision */}
           <div className="md:col-span-3 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-royal-blue to-gold rounded-xl flex items-center justify-center text-white font-extrabold shadow">
-                <Cross className="w-4 h-4" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-royal-blue via-navy-light to-gold/90 border border-gold/40 p-2 shadow-lg shadow-royal-blue/20 flex items-center justify-center shrink-0">
+                <Church className="w-5 h-5 text-white drop-shadow" />
               </div>
               <div>
                 <h4 className="font-display font-extrabold text-sm tracking-wider text-white">SANCTUARY OF JESUS CHRIST</h4>
-                <p className="text-[10px] text-gold tracking-widest uppercase font-bold leading-none">House of Restoration</p>
+                <p className="text-[10px] text-gold tracking-widest uppercase font-bold leading-none mt-1">House of Restoration</p>
               </div>
             </div>
 

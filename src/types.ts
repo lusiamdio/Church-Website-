@@ -96,3 +96,41 @@ export interface Message {
   text: string;
   timestamp: string;
 }
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  category: 'Devotional Intel' | 'Faith & Leadership' | 'Kingdom Business' | 'Family & Culture' | 'Global Intercession' | 'Mind & Wellness';
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+    bio: string;
+  };
+  publishedAt: string;
+  readTime: string;
+  heroImage: string;
+  imageCaption: string;
+  isEditorialPick?: boolean;
+  isTrending?: boolean;
+  trendingRank?: number;
+  excerpt: string;
+  content: {
+    openingDropCap: string;
+    openingText: string;
+    paragraphs: string[];
+    subsections: {
+      title: string;
+      content: string;
+    }[];
+    pullQuote?: {
+      quote: string;
+      reference: string;
+    };
+    takeaways: string[];
+    prayer: string;
+  };
+  relatedIds: string[];
+}
